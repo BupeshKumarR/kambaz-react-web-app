@@ -1,14 +1,16 @@
 export default function Modules() {
   return (
     <div>
-      <div className="wd-buttons">
-        <button>Collapse All</button>
-        <button>View Progress</button>
-        <div className="dropdown">
-          <button className="dropdown-button">Publish All &#9660;</button>
+      <button>Collapse All</button>
+      <button>View Progress</button>
+      <div className="dropdown" style={{ display: 'inline-block' }}>
+        <button className="dropdown-button">Publish All ▼</button>
+        <div className="dropdown-content">
+
+
         </div>
-        <button>+ Module</button>
       </div>
+      <button>+ Module</button>
 
       <ul id="wd-modules">
         <li className="wd-module">
