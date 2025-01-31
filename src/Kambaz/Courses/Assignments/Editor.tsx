@@ -92,7 +92,7 @@ export default function Editor() {
                       <td></td>
                       <td>
                           <label htmlFor="wd-due-date">Due</label><br />
-                          <input id="wd-due-date" type="date" ></input>
+                          <input id="wd-due-date" type="date" defaultValue="2024-05-13" ></input>
                       </td>
                   </tr>
                   <br />
@@ -100,11 +100,11 @@ export default function Editor() {
                       <td></td>
                       <td>
                           <label htmlFor="wd-available-from">Available from</label><br />
-                          <input id="wd-available-from" type="date"></input>
+                          <input id="wd-available-from" type="date" defaultValue="2024-05-06"></input>
                       </td>
                       <td>
                           <label htmlFor="wd-available-until">Until</label><br />
-                          <input id="wd-available-until" type="date"></input>
+                          <input id="wd-available-until" type="date" defaultValue="2024-05-20"></input>
                       </td>
                   </tr>
               </table>
