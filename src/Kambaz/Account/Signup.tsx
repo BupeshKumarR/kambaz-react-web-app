@@ -1,12 +1,51 @@
 import { Link } from "react-router-dom";
+
 export default function Signup() {
   return (
-    <div id="wd-signup-screen">
-      <h3>Sign up</h3>
-      <input placeholder="username" className="wd-username" /><br/>
-      <input placeholder="password" type="password" className="wd-password" /><br/>
-      <input placeholder="verify password" type="password" className="wd-password-verify" /><br/>
-      <Link  to="/Kambaz/Account/Profile" > Sign up </Link><br />
-      <Link  to="/Kambaz/Account/Signin" >Sign in</Link>
+    <div id="wd-signup-screen" className="container mt-5 d-flex justify-content-center align-items-center">
+      <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
+        <h3 className="text-center mb-4">Sign Up</h3>
+        <form>
+          {/* Username Input */}
+          <div className="mb-3">
+            <input
+              placeholder="Username"
+              id="wd-username"
+              className="form-control"
+              type="text"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="mb-3">
+            <input
+              placeholder="Password"
+              id="wd-password"
+              className="form-control"
+              type="password"
+            />
+          </div>
+
+
+
+          {/* Sign Up Button */}
+          <div className="d-grid">
+            <Link to="/Kambaz/Dashboard" id="wd-signup-btn" className="btn btn-primary">
+              Sign Up
+            </Link>
+          </div>
+        </form>
+
+        {/* Sign In Link */}
+        <div className="text-center mt-3">
+          <p className="mb-0 float-start">
+            
+            <Link to="/Kambaz/Account/Signin" id="wd-signin-link" className="text-decoration-none">
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
-);}
+  );
+}

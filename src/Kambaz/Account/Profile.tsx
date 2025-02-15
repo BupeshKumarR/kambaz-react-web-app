@@ -1,19 +1,96 @@
 import { Link } from "react-router-dom";
+
 export default function Profile() {
   return (
-    <div id="wd-profile-screen">
-      <h3>Profile</h3>
-      <input defaultValue="alice" placeholder="username" className="wd-username"/><br/>
-      <input defaultValue="123"   placeholder="password" type="password"
-             className="wd-password" /><br/>
-      <input defaultValue="Alice" placeholder="First Name" id="wd-firstname" /><br/>
-      <input defaultValue="Wonderland" placeholder="Last Name" id="wd-lastname" /><br/>
-      <input defaultValue="2000-01-01" type="date" id="wd-dob" /><br/>
-      <input defaultValue="alice@wonderland" type="email" id="wd-email" /><br/>
-      <select defaultValue="FACULTY" id="wd-role">
-        <option value="USER">User</option>       <option value="ADMIN">Admin</option>
-        <option value="FACULTY">Faculty</option> <option value="STUDENT">Student</option>
-      </select><br/>
-      <Link to="/Kambaz/Account/Signin" >Sign out</Link>
+    <div id="wd-profile-screen" className="container mt-5 d-flex justify-content-center align-items-center">
+      <div className="card shadow p-4" style={{ maxWidth: "700px", width: "100%" }}>
+        <h3 className="text-center mb-4">Profile</h3>
+        <form>
+          {/* Username */}
+          <div className="mb-3">
+            <input
+              id="wd-username"
+              className="form-control"
+              value="alice"
+              placeholder="Username"
+              type="text"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-3">
+            <input
+              id="wd-password"
+              className="form-control"
+              value="123"
+              placeholder="Password"
+              type="text"
+            />
+          </div>
+
+          {/* First Name */}
+          <div className="mb-3">
+            <input
+              id="wd-firstname"
+              className="form-control"
+              value="Alice"
+              placeholder="First Name"
+              type="text"
+            />
+          </div>
+
+          {/* Last Name */}
+          <div className="mb-3">
+            <input
+              id="wd-lastname"
+              className="form-control"
+              value="Wonderland"
+              placeholder="Last Name"
+              type="text"
+            />
+          </div>
+
+          {/* Date of Birth */}
+          <div className="mb-3">
+            <input
+              id="wd-dob"
+              className="form-control"
+              value={"2000-01-01"}
+              placeholder="Date of Birth"
+              type="date"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="mb-3">
+            <input
+              id="wd-email"
+              className="form-control"
+              value="alice@wonderland"
+              placeholder="Email"
+              type="email"
+            />
+          </div>
+
+          {/* Role */}
+          <div className="mb-3">
+            <select id="wd-role" className="form-control">
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
+              <option value="FACULTY">Faculty</option>
+              <option value="STUDENT">Student</option>
+            </select>
+          </div>
+
+          {/* Buttons */}
+          <div className="d-flex justify-content-between mt-4">
+
+            <Link to="/Kambaz/Account/Signin" className="btn btn-danger w-100">
+              Sign Out
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
-);}
+  );
+}
