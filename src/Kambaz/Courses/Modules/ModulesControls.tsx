@@ -1,48 +1,44 @@
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
-import { Button, Dropdown } from "react-bootstrap";
 export default function ModulesControls() {
- return (
-   <div id="wd-modules-controls" className="text-nowrap">
-     <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn">
-       <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-       Module
-     </Button>
-     <Dropdown className="float-end me-2">
-       <Dropdown.Toggle variant="secondary" size="lg" id="wd-publish-all-btn">
-         <GreenCheckmark /> Publish All
-       </Dropdown.Toggle>
-       <Dropdown.Menu>
-         <Dropdown.Item id="wd-publish-all">
-           <GreenCheckmark /> Publish All
-         </Dropdown.Item>
-         <Dropdown.Item id="wd-publish-all-modules-and-items">
-           <GreenCheckmark /> Publish all modules and items
-         </Dropdown.Item>
-         <Dropdown.Item id="wd-publish-modules-only">
-           <GreenCheckmark /> Publish modules only
-         </Dropdown.Item>
-         <Dropdown.Item id="wd-unpublish-all-modules-and-items">
-            <GreenCheckmark /> Unpublish all modules and items
-          </Dropdown.Item>
-          <Dropdown.Item id="wd-unpublish-modules-only">
-            <GreenCheckmark /> Unpublish modules only
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      <div className="dropdown d-inline me-1 float-end">
-        <button id="wd-view-progress-btn" className="btn btn-lg btn-secondary"
-          type="button" data-bs-toggle="dropdown">
-            View Progress
-        </button>
-      </div>
-
-      <div className="dropdown d-inline me-1 float-end">
-        <button id="wd-collapse-all-btn" className="btn btn-lg btn-secondary"
-          type="button" data-bs-toggle="dropdown">
-            Collapse All
-        </button>
-      </div>
-    </div>
-  );
+    return (
+        <div id="wd-modules-controls" className="d-flex justify-content-end align-items-end mt-4 ms-5">
+            <button id="wd-collapse-all" className="btn btn-md btn-secondary me-1 flex-shrink-0" style={{ whiteSpace: "nowrap" }}>Collapse All</button>
+            <button id="wd-view-progress" className="btn btn-md btn-secondary me-1 flex-shrink-0" style={{ whiteSpace: "nowrap" }}>View Progress</button>
+            <div className="dropdown d-inline me-1">
+                <button id="wd-publish-all-btn" className="btn btn-md btn-secondary dropdown-toggle flex-shrink-0"
+                    style={{ whiteSpace: "nowrap" }}
+                    type="button" data-bs-toggle="dropdown">
+                    <GreenCheckmark />
+                    Publish All</button>
+                <ul className="dropdown-menu">
+                    <li>
+                        <a id="wd-publish-all-modules-and-items-btn" className="dropdown-item" href="#">
+                            <GreenCheckmark />
+                            Publish all modules and items</a>
+                    </li>
+                    <li>
+                        <a id="wd-publish-modules-only-button" className="dropdown-item" href="#">
+                            <GreenCheckmark />
+                            Publish modules only</a>
+                    </li>
+                    <li>
+                        <a id="wd-unpublish-all-modules-and-item" className="dropdown-item" href="#">
+                            <GreenCheckmark />
+                            Unpublish all modules and items
+                        </a>
+                    </li>
+                    <li>
+                        <a id="wd-unpublish-modules-only" className="dropdown-item" href="#">
+                            <GreenCheckmark />
+                            Unpublish modules only
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <button id="wd-add-module-btn" className="btn btn-md btn-danger me-1 flex-shrink-0" style={{ whiteSpace: "nowrap" }}>
+                <FaPlus className="position-relative" style={{ bottom: "1px" }} />
+                Module</button>
+        </div>
+    );
 }
