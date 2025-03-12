@@ -1,0 +1,81 @@
+.button-up {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Adjust padding for size */
+    font-size: 16px; /* Adjust font size */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Add pointer cursor */
+}
+
+.button-down {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Adjust padding for size */
+    font-size: 16px; /* Adjust font size */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Add pointer cursor */
+}
+
+/* Container styling */
+#wd-array-state-variables {
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  /* Add Element button */
+  .button-add {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .button-add:hover {
+    background-color: #006400; /* Darker green on hover */
+  }
+  
+  /* List styling */
+  ul {
+    list-style-type: none;
+    padding: 14px;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    
+    margin-bottom: 8px;
+  }
+  
+  /* Delete button */
+  .button-delete {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .button-delete:hover {
+    background-color: #8b0000; /* Darker red on hover */
+  }
+  
+  
+  /* Number styling in the list */
+  li span {
+    font-size: 16px;
+    margin-right: 16px;
+  }
+
+  

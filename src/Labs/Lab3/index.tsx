@@ -31,56 +31,71 @@ import Square from "./Square";
 import Highlight from "./Highlight";
 import AddPathParameters from "./AddPathParameters";
 import PathParameters from "./PathParameters";
+import { useSelector } from "react-redux";
+import { Container, ListGroup } from "react-bootstrap";
 
 export default function Lab3() {
   console.log('Hello World');
-    return (
-      <div>
-        <h2>JavaScript</h2>
-        <VariablesAndConstants />
-        <VariableTypes />
-        <BooleanVariables />
-        <IfElse />
-        <TernaryOperator /> 
-        <ConditionalOutputIfElse />
-        <ConditionalOutputInline />
-        <LegacyFunctions />
-        <ArrowFunctions />
-        <ImpliedReturn />
-        <TemplateLiterals />
-        <SimpleArrays />
-        <ArrayIndexAndLength />
-        <AddingAndRemovingToFromArrays />
-        <ForLoops />
-        <MapFunction />
-        <FindFunction />
-        <FindIndex />
-        <FilterFunction />
-        <JsonStringify />
-        <House />
-        <TodoList />
-        <Spreading />
-        <Destructing />
-        <FunctionDestructing />
-        <DestructingImports />
-        <Classes />
-        <Styles />
-        <Add a={3} b={4} />
-        <h4>Square of 4</h4>
-        <Square>4</Square>
-        <hr />
-        <Highlight>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipitratione eaque illo minus cum, saepe totam
-        vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
-        </Highlight>
-        <PathParameters />
-        <AddPathParameters />
+  const { todos } = useSelector((state: any) => state.todosReducer);
+  return (
+    <Container>
+    <div id = "wd-lab3">
+      <h2>JavaScript</h2>
+
+      <ListGroup>
+      {todos.map((todo: any) => (
+        <ListGroup.Item key={todo.id}>
+          {todo.title}
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
+    <hr />
+      <VariablesAndConstants />
+      <VariableTypes />
+      <BooleanVariables />
+      <IfElse />
+      <TernaryOperator /> 
+      <ConditionalOutputIfElse />
+      <ConditionalOutputInline />
+      <LegacyFunctions />
+      <ArrowFunctions />
+      <ImpliedReturn />
+      <TemplateLiterals />
+      <SimpleArrays />
+      <ArrayIndexAndLength />
+      <AddingAndRemovingToFromArrays />
+      <ForLoops />
+      <MapFunction />
+      <FindFunction />
+      <FindIndex />
+      <FilterFunction />
+      <JsonStringify />
+      <House />
+      <TodoList />
+      <Spreading />
+      <Destructing />
+      <FunctionDestructing />
+      <DestructingImports />
+      <Classes />
+      <Styles />
+      <Add a={3} b={4} />
+      <h4>Square of 4</h4>
+      <Square>4</Square>
+      <hr />
+      <Highlight>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipitratione eaque illo minus cum, saepe totam
+      vel nihil repellat nemo explicabo excepturi consectetur. Modi omnis minus sequi maiores, provident voluptates.
+      </Highlight>
+      <PathParameters />
+      <AddPathParameters />
 
 
 
 
 
 
-      </div>
-  )};
+    </div>
+      </Container>
+  );
+  }
   
