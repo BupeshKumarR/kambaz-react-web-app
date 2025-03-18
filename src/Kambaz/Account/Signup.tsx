@@ -1,51 +1,35 @@
 import { Link } from "react-router-dom";
+import { Form } from "react-bootstrap";
 
 export default function Signup() {
   return (
-    <div id="wd-signup-screen" className="container mt-5 d-flex justify-content-center align-items-center">
-      <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
-        <h3 className="text-center mb-4">Sign Up</h3>
-        <form>
-          {/* Username Input */}
-          <div className="mb-3">
-            <input
-              placeholder="Username"
-              id="wd-username"
-              className="form-control"
-              type="text"
-            />
-          </div>
+    <div
+      id="wd-signup-screen"
+      className="container"
+      style={{ maxWidth: "400px" }}
+    >
+      <h3>Sign up</h3>
+      <Form>
+        <Form.Group controlId="wd-username" className="mb-2">
+          <Form.Control placeholder="username" />
+        </Form.Group>
 
-          {/* Password Input */}
-          <div className="mb-3">
-            <input
-              placeholder="Password"
-              id="wd-password"
-              className="form-control"
-              type="password"
-            />
-          </div>
+        <Form.Group controlId="wd-password" className="mb-2">
+          <Form.Control placeholder="password" type="password" />
+        </Form.Group>
 
+        <Form.Group controlId="wd-password-verify" className="mb-3">
+          <Form.Control placeholder="verify password" type="password" />
+        </Form.Group>
 
-
-          {/* Sign Up Button */}
-          <div className="d-grid">
-            <Link to="/Kambaz/Dashboard" id="wd-signup-btn" className="btn btn-primary">
-              Sign Up
-            </Link>
-          </div>
-        </form>
-
-        {/* Sign In Link */}
-        <div className="text-center mt-3">
-          <p className="mb-0 float-start">
-            
-            <Link to="/Kambaz/Account/Signin" id="wd-signin-link" className="text-decoration-none">
-              Sign In
-            </Link>
-          </p>
-        </div>
-      </div>
+        <Link
+          to="/Kambaz/Account/Profile"
+          className="btn btn-primary w-100 mb-2"
+        >
+          Signup
+        </Link>
+        <Link to="/Kambaz/Account/Signin">Sign in</Link>
+      </Form>
     </div>
   );
 }

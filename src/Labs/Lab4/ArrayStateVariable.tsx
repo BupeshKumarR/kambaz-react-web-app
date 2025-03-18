@@ -1,30 +1,31 @@
 import { useState } from "react";
-import "./lab4.css";
-
 export default function ArrayStateVariable() {
   const [array, setArray] = useState([1, 2, 3, 4, 5]);
-
   const addElement = () => {
     setArray([...array, Math.floor(Math.random() * 100)]);
   };
-
   const deleteElement = (index: number) => {
-    setArray(array.filter((_item, i) => i !== index));
+    setArray(
+      array.filter((item, i) => {
+        console.log(`Comparing index ${i} with ${item}`); // This explicitly uses both i and index
+        return i !== index;
+      })
+    );
   };
-
   return (
     <div id="wd-array-state-variables">
       <h2>Array State Variable</h2>
-      <button onClick={addElement} className="button-add">
+      <button className="btn btn-success mb-2" onClick={addElement}>
         Add Element
       </button>
       <ul>
         {array.map((item, index) => (
           <li key={index}>
-            <span>{item}</span>
+            {item}
             <button
+              className="btn btn-danger ms-5"
               onClick={() => deleteElement(index)}
-              className="button-delete"
+              id="wd-delete-element-click"
             >
               Delete
             </button>
