@@ -7,7 +7,9 @@ import { TfiAnnouncement } from "react-icons/tfi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { SiGoogleanalytics } from "react-icons/si";
 import { CiCalendarDate } from "react-icons/ci";
-
+{
+  /* Find more icons */
+}
 export default function CourseStatus() {
   return (
     <div id="wd-course-status">
