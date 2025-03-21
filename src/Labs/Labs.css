@@ -1,0 +1,4 @@
+/* Override center alignment for the labs container */
+#labs-container {
+    text-align: left;
+  }

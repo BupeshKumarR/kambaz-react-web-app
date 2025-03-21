@@ -1,0 +1,6 @@
+/* global.css */
+
+/* Override center alignment for all content */
+body, #root, .container, .main-content, .content-container {
+    text-align: left;
+  }

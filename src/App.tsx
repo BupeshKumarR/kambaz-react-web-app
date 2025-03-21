@@ -1,5 +1,5 @@
 import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
-import "./App.css";
+// import "./global.css";
 import Labs from "./Labs";
 import Kambaz from "./Kambaz";
 import { Provider } from "react-redux";

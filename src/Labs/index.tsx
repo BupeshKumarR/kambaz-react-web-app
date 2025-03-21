@@ -7,15 +7,16 @@ import Lab3 from "./Lab3";
 import TOC from "./TOC";
 import Lab4 from "./Lab4";
 import { Container } from "react-bootstrap";
+import "./Labs.css";
 export default function Labs() {
   return (
-    <Container>
+    <Container id="labs-container">
       <Provider store={store}>
         {/* <div id="wd=-labs"> */}
         <h1>Labs</h1>
         <h2> Bupesh Kumar Ramesh Kumar</h2>
         <h3>Section: 02</h3>
-        <hr></hr>
+        <hr/>
         <TOC />
         <Routes>
           <Route path="/" element={<Navigate to="Lab1" />} />
@@ -27,5 +28,6 @@ export default function Labs() {
         {/* </div> */}
       </Provider>
     </Container>
+    
   );
 }
