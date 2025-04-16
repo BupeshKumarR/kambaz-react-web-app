@@ -4,12 +4,16 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAssignment } from "./reducer";
 import AssignmentEditor from "./AssignmentEditor";
-import { useState } from "react";
-import AssignmentControlButtons from "./AssignmentControlButton";
+import { useEffect, useState } from "react";
+import AssignmentControlButton from "./AssignmentControlButton";
 import AssignmentControls from "./AssignmentControls";
 import { useNavigate } from "react-router-dom";
+import * as client from "./client";
+import {
+  deleteAssignment as deleteAssignmentAction,
+  setAssignments,
+} from "./reducer";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -18,30 +22,38 @@ export default function Assignments() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // State for Assignment Editor
   const [showEditor, setShowEditor] = useState(false);
   const [editingAssignment, setEditingAssignment] = useState<any>(null);
 
-  // For non-faculty, navigate to assignment details page
   const handleNavigate = (assignmentId: string) => {
     navigate(`/Kambaz/Courses/${cid}/Assignments/${assignmentId}`);
   };
 
-  // For faculty, open the editor with the selected assignment
   const handleEditClick = (assignment: any) => {
     setEditingAssignment(assignment);
     setShowEditor(true);
   };
 
-  // When "Add Assignment" is clicked
   const handleAddAssignment = () => {
     setEditingAssignment(null);
     setShowEditor(true);
   };
 
+  const deleteAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignmentAction(assignmentId));
+  };
+
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      const data = await client.fetchAssignments(); // <-- or pass course ID if using course filter
+      dispatch(setAssignments(data));
+    };
+    fetchAssignments();
+  }, [cid]);
+
   return (
     <div id="wd-assignments" className="ms-5">
-      {/* Render AssignmentControls with onAddAssignment prop */}
       <AssignmentControls onAddAssignment={handleAddAssignment} />
 
       <br />
@@ -87,7 +99,6 @@ export default function Assignments() {
                       className="wd-assignment-link wd-disabled-link"
                       onClick={(e) => {
                         e.preventDefault();
-                        // For non-faculty, navigate to assignment details
                         if (currentUser?.role !== "FACULTY") {
                           handleNavigate(assignment._id);
                         }
@@ -117,11 +128,9 @@ export default function Assignments() {
                   </div>
 
                   {currentUser?.role === "FACULTY" && (
-                    <AssignmentControlButtons
+                    <AssignmentControlButton
                       assignmentID={assignment._id}
-                      deleteAssignment={() =>
-                        dispatch(deleteAssignment(assignment._id))
-                      }
+                      deleteAssignment={() => deleteAssignment(assignment._id)}
                     />
                   )}
                 </li>
