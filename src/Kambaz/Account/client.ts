@@ -92,9 +92,12 @@ export const findUsersByPartialName = async (name: string) => {
 };
 
 export const findCoursesForUser = async (userId: string) => {
+
+
   const { data } = await axiosWithCredentials.get(
     `${USERS_API}/${userId}/courses`
   );
+  console.log("Data", data);
   return data;
 };
 

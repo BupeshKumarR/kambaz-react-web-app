@@ -28,6 +28,7 @@ export default function Dashboard({
 
   const isFaculty = currentUser?.role === "FACULTY";
 
+
   return (
     <div className="p-4" id="wd-dashboard">
       <h1 id="wd-dashboard-title">

@@ -34,6 +34,7 @@ export default function Kambaz() {
   });
 
   const fetchEnrolledCourses = async () => {
+    console.log("userId", currentUser._id);
     const userCourses = await userClient.findCoursesForUser(currentUser._id);
 
     const enrolledCourses = userCourses.map((course: any) => ({
@@ -109,13 +110,14 @@ export default function Kambaz() {
   const { cid } = useParams();
   console.log(cid);
 
+  console.log( "Courses:", courses);
   return (
     <Session>
       <div id="wd-Kambaz" className="d-flex">
         <div className="d-none d-md-block">
           <KambazNavigation />
         </div>
-        <div className="wd-main-content-offset p-3 flex-grow-1 me-4">
+        <div className="wd-main-content-offset flex-grow-1 me-4" style={{ paddingLeft: '200px' }}>
           <Routes>
             <Route path="/" element={<Navigate to="Dashboard" />} />
             <Route path="/Account/*" element={<Account />} />
