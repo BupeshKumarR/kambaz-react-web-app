@@ -1,14 +1,14 @@
+
 import { Navigate, Route, Routes, useParams } from "react-router";
 import Account from "./Account";
 import Dashboard from "./Dashboard";
 import KambazNavigation from "./Navigation";
 import Courses from "./Courses";
 import "./styles.css";
+
 import * as courseClient from "./Courses/client";
-
-import Session from "./Account/Session";
-
 import * as userClient from "./Account/client";
+import Session from "./Account/Session";
 import Labs from "../Labs";
 import * as enrollmentsClient from "./Account/Enrollements/client";
 
@@ -19,33 +19,9 @@ import { enroll, setEnrollments } from "./Account/Enrollements/reducer";
 
 export default function Kambaz() {
   const [courses, setCourses] = useState<any[]>([]);
-  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const [enrolling, setEnrolling] = useState<boolean>(false);
   const dispatch = useDispatch();
-
-  const fetchCourses = async () => {
-    try {
-      const courses = await userClient.findAllCourses();
-      setCourses(courses);
-    } catch (error) {
-      console.error("Failed to fetch courses", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchEnrollments = async () => {
-      try {
-        const enrollments = await enrollmentsClient.fetchEnrollmentsForUser();
-        dispatch(setEnrollments(enrollments));
-      } catch (err) {
-        console.error("Failed to fetch enrollments", err);
-      }
-    };
-
-    if (currentUser) {
-      fetchCourses();
-      fetchEnrollments();
-    }
-  }, [currentUser]);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   const [course, setCourse] = useState<any>({
     _id: "RS101",
@@ -57,28 +33,78 @@ export default function Kambaz() {
     imgSource: "/images/angular.png",
   });
 
-  const addNewCourse = async () => {
-    try {
-      const newCourse = await userClient.createCourse(course);
-      setCourses((prev) => [...prev, newCourse]);
+  const fetchEnrolledCourses = async () => {
+    const userCourses = await userClient.findCoursesForUser(currentUser._id);
 
-      await enrollmentsClient.enrollUser(newCourse._id);
-      dispatch(enroll({ user: currentUser._id, course: newCourse._id }));
-    } catch (err) {
-      console.error("Failed to add and enroll in new course", err);
+    const enrolledCourses = userCourses.map((course: any) => ({
+      ...course,
+      enrolled: true,
+    }));
+    setCourses(enrolledCourses);
+  };
+
+  const fetchAllCoursesWithEnrollFlag = async () => {
+    const allCourses = await courseClient.fetchAllCourses();
+    const enrolledCourses = await userClient.findCoursesForUser(
+      currentUser._id
+    );
+    const coursesWithEnrollFlag = allCourses.map((course: any) => {
+      const isEnrolled = enrolledCourses.some((c: any) => c._id === course._id);
+      return { ...course, enrolled: isEnrolled };
+    });
+    setCourses(coursesWithEnrollFlag);
+  };
+
+  const updateEnrollment = async (courseId: string, enrolled: boolean) => {
+    if (enrolled) {
+      await userClient.enrollIntoCourse(currentUser._id, courseId);
+    } else {
+      await userClient.unenrollFromCourse(currentUser._id, courseId);
     }
+    setCourses((prevCourses) =>
+      prevCourses.map((course) =>
+        course._id === courseId ? { ...course, enrolled } : course
+      )
+    );
+  };
+
+  const addNewCourse = async () => {
+    const newCourse = await courseClient.createCourse(course);
+    setCourses((prev) => [...prev, newCourse]);
+    await enrollmentsClient.enrollUser(newCourse._id);
+    dispatch(enroll({ user: currentUser._id, course: newCourse._id }));
   };
 
   const deleteCourse = async (courseId: string) => {
-    const status = await courseClient.deleteCourse(courseId);
-    console.log("status", status);
-    setCourses(courses.filter((course) => course._id !== courseId));
+    await courseClient.deleteCourse(courseId);
+    setCourses((prev) => prev.filter((course) => course._id !== courseId));
   };
 
   const updateCourse = async () => {
     await courseClient.updateCourse(course);
-    setCourses(courses.map((c) => (c._id === course._id ? course : c)));
+    setCourses((prev) => prev.map((c) => (c._id === course._id ? course : c)));
   };
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const fetchData = async () => {
+      try {
+        if (enrolling) {
+          await fetchAllCoursesWithEnrollFlag();
+        } else {
+          await fetchEnrolledCourses();
+        }
+
+        const enrollments = await enrollmentsClient.fetchEnrollmentsForUser();
+        dispatch(setEnrollments(enrollments));
+      } catch (err) {
+        console.error("Failed to load dashboard data:", err);
+      }
+    };
+
+    fetchData();
+  }, [currentUser, enrolling, dispatch]);
 
   const { cid } = useParams();
   console.log(cid);
@@ -89,7 +115,7 @@ export default function Kambaz() {
         <div className="d-none d-md-block">
           <KambazNavigation />
         </div>
-        <div className="wd-main-content-offset flex-grow-1 me-4" style={{ paddingLeft: '200px' }}>
+        <div className="wd-main-content-offset p-3 flex-grow-1 me-4">
           <Routes>
             <Route path="/" element={<Navigate to="Dashboard" />} />
             <Route path="/Account/*" element={<Account />} />
@@ -104,6 +130,9 @@ export default function Kambaz() {
                     addNewCourse={addNewCourse}
                     deleteCourse={deleteCourse}
                     updateCourse={updateCourse}
+                    enrolling={enrolling}
+                    setEnrolling={setEnrolling}
+                    updateEnrollment={updateEnrollment}
                   />
                 </ProtectedRoute>
               }
@@ -119,6 +148,9 @@ export default function Kambaz() {
                     addNewCourse={addNewCourse}
                     deleteCourse={deleteCourse}
                     updateCourse={updateCourse}
+                    enrolling={enrolling}
+                    setEnrolling={setEnrolling}
+                    updateEnrollment={updateEnrollment}
                   />
                 </ProtectedRoute>
               }

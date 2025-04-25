@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import AssignmentControlButton from "./AssignmentControlButton";
 import AssignmentControls from "./AssignmentControls";
 import { useNavigate } from "react-router-dom";
-import * as client from "./client";
+import * as client from "./client"; // <-- ✅ Import the client
 import {
   deleteAssignment as deleteAssignmentAction,
   setAssignments,
@@ -46,7 +46,8 @@ export default function Assignments() {
 
   useEffect(() => {
     const fetchAssignments = async () => {
-      const data = await client.fetchAssignments(); // <-- or pass course ID if using course filter
+      if (!cid) return;
+      const data = await client.findAssignmentsForCourse(cid); // ✅ Use course-specific API
       dispatch(setAssignments(data));
     };
     fetchAssignments();
